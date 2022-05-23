@@ -1,4 +1,4 @@
-package com.yicj.netty.simple;
+package com.yicj.netty.simple.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -21,8 +21,9 @@ public class SimpleNettyServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
+                        // 指定连接数据读写逻辑
                         ChannelPipeline pipeline = ch.pipeline();
-
+                        pipeline.addLast(new FirstServerHandler()) ;
                     }
                 }) ;
 
