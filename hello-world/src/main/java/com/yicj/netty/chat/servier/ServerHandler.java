@@ -1,13 +1,14 @@
 package com.yicj.netty.chat.servier;
 
-import com.yicj.netty.common.packet.LoginRequestPacket;
-import com.yicj.netty.common.packet.LoginResponsePacket;
-import com.yicj.netty.common.packet.Packet;
-import com.yicj.netty.common.packet.PacketCodeC;
+import com.yicj.netty.common.packet.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.Date;
+
+@Slf4j
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
@@ -31,6 +32,14 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             // 编码
             ByteBuf responseByteBuf = PacketCodeC.INSTANCE.encode(ctx.alloc(), responsePacket);
             ctx.writeAndFlush(responseByteBuf) ;
+        }else if (packet instanceof MessageRequestPacket){
+            // 处理消息
+            MessageRequestPacket messageRequestPacket = (MessageRequestPacket) packet ;
+            log.info("{}：收到客户端消息：{}",new Date(), messageRequestPacket.getMessage());
+            MessageResponsePacket messageResponsePacket = new MessageResponsePacket() ;
+            messageResponsePacket.setMessage("服务端回复【"+messageRequestPacket.getMessage()+"】");
+            ByteBuf responseByteBuf = PacketCodeC.INSTANCE.encode(ctx.alloc(), messageResponsePacket);
+            ctx.channel().writeAndFlush(responseByteBuf) ;
         }
 
     }

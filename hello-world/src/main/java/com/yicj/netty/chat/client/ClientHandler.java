@@ -1,9 +1,7 @@
 package com.yicj.netty.chat.client;
 
-import com.yicj.netty.common.packet.LoginRequestPacket;
-import com.yicj.netty.common.packet.LoginResponsePacket;
-import com.yicj.netty.common.packet.Packet;
-import com.yicj.netty.common.packet.PacketCodeC;
+import com.yicj.netty.common.packet.*;
+import com.yicj.netty.common.util.LoginUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -38,10 +36,14 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         if (packet instanceof LoginResponsePacket){
             LoginResponsePacket responsePacket = (LoginResponsePacket) packet ;
             if (responsePacket.getSuccess()){
+                LoginUtil.markAsLogin(ctx.channel());
                 log.info("{}：客户端登录成功!", new Date());
             }else {
                 log.info("{}：客户端登录失败，原因：{}", new Date(), responsePacket.getReason());
             }
+        }else if (packet instanceof MessageResponsePacket){
+            MessageResponsePacket messageResponsePacket = (MessageResponsePacket) packet ;
+            log.info("{}：收到服务端的消息：{}", new Date(), messageResponsePacket.getMessage());
         }
     }
 }
