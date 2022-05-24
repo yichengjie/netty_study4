@@ -20,7 +20,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
             responsePacket.setReason("账号密码校验失败！");
         }
         // 编码
-        ctx.writeAndFlush(responsePacket) ;
+        ctx.channel().writeAndFlush(responsePacket) ;
     }
 
     private boolean validLogin(LoginRequestPacket loginRequestPacket) {
