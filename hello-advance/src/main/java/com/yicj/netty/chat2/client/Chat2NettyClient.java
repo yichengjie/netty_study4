@@ -30,10 +30,10 @@ public class Chat2NettyClient {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     // 指定连接数据读写逻辑
+                    ch.pipeline().addLast(new Chat2ClientHandler()) ;
                     ch.pipeline().addLast(new PaketDecoder()) ;
                     ch.pipeline().addLast(new LoginResponseHandler());
                     ch.pipeline().addLast(new MessageResponseHandler()) ;
-                    ch.pipeline().addLast(new Chat2ClientHandler()) ;
                     ch.pipeline().addLast(new PacketEncode()) ;
                 }
             }) ;

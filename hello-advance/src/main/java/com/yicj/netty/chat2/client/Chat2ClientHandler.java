@@ -23,8 +23,8 @@ public class Chat2ClientHandler extends ChannelInboundHandlerAdapter {
         packet.setPassword("pwd");
         // 编码
         // ctx.alloc() 获取的是与当前连接相关的ByteBuf分配器,建议这样使用
-        ByteBuf byteBuf = PacketCodeC.INSTANCE.encode(ctx.alloc().ioBuffer(), packet);
+        //ByteBuf byteBuf = PacketCodeC.INSTANCE.encode(ctx.alloc().ioBuffer(), packet);
         // 写数据
-        ctx.channel().writeAndFlush(byteBuf) ;
+        ctx.channel().writeAndFlush(packet) ;
     }
 }
