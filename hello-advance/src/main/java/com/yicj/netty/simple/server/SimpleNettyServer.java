@@ -1,4 +1,4 @@
-package com.yicj.netty.chat.servier;
+package com.yicj.netty.simple.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -11,7 +11,7 @@ import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ChatNettyServer {
+public class SimpleNettyServer {
 
     public static void main(String[] args) {
 
@@ -25,8 +25,9 @@ public class ChatNettyServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
+                        // 指定连接数据读写逻辑
                         ChannelPipeline pipeline = ch.pipeline();
-                        pipeline.addLast(new ChatServerHandler()) ;
+                        pipeline.addLast(new FirstServerHandler()) ;
                     }
                 }) ;
 

@@ -10,6 +10,7 @@
     <modules>
         <module>hello-world</module>
         <module>template</module>
+        <module>hello-advance</module>
     </modules>
     <packaging>pom</packaging>
 

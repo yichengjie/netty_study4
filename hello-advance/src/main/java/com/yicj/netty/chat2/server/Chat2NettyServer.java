@@ -1,5 +1,7 @@
-package com.yicj.netty.chat.servier;
+package com.yicj.netty.chat2.server;
 
+import com.yicj.netty.chat2.PacketEncode;
+import com.yicj.netty.chat2.PaketDecoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -11,7 +13,7 @@ import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ChatNettyServer {
+public class Chat2NettyServer {
 
     public static void main(String[] args) {
 
@@ -26,7 +28,10 @@ public class ChatNettyServer {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
-                        pipeline.addLast(new ChatServerHandler()) ;
+                        pipeline.addLast(new PaketDecoder()) ;
+                        pipeline.addLast(new LoginRequestHandler()) ;
+                        pipeline.addLast(new MessageRequestHandler()) ;
+                        pipeline.addLast(new PacketEncode()) ;
                     }
                 }) ;
 

@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Slf4j
-public class ClientHandler extends ChannelInboundHandlerAdapter {
+public class ChatClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
