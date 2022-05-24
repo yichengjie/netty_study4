@@ -7,9 +7,12 @@ public class PacketCodeC {
 
     private static final  int MAGIC_NUMBER  = 0x12345678 ;
 
-    public ByteBuf encode(Packet packet) {
+    public static final PacketCodeC INSTANCE = new PacketCodeC() ;
+
+    public ByteBuf encode(ByteBufAllocator allocator, Packet packet) {
         //1. 创建ByteBuf对象
-        ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
+        //ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
+        ByteBuf byteBuf = allocator.ioBuffer();
         //2. 序列化Java对象
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
         //3. 实际编码过程
@@ -53,10 +56,11 @@ public class PacketCodeC {
         return null ;
     }
 
-
     private Class<? extends Packet> getRequestType(byte command) {
         if (Command.LOGIN_REQUEST == command){
-            return LoginRequestPackage.class ;
+            return LoginRequestPacket.class ;
+        }else if (Command.LOGIN_RESPONSE == command){
+            return LoginResponsePacket.class ;
         }
         return null ;
     }

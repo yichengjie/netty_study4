@@ -3,8 +3,8 @@ package com.yicj.netty.codec;
 import lombok.Data;
 
 @Data
-public class LoginRequestPackage extends Packet {
-    private Integer userId ;
+public class LoginRequestPacket extends Packet {
+    private String userId ;
     private String username ;
     private String password ;
 

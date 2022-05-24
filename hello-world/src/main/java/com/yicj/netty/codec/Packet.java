@@ -17,7 +17,7 @@ public abstract class Packet {
     /**
      * 协议版本
      */
-    private Byte version ;
+    private Byte version = 1 ;
 
     /**
      * 指令

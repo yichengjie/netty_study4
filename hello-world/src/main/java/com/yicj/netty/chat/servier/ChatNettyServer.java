@@ -1,4 +1,4 @@
-package com.yicj.netty.template;
+package com.yicj.netty.chat.servier;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -11,7 +11,7 @@ import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TemplateNettyServer {
+public class ChatNettyServer {
 
     public static void main(String[] args) {
 
@@ -26,7 +26,7 @@ public class TemplateNettyServer {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
-
+                        pipeline.addLast(new ServerHandler()) ;
                     }
                 }) ;
 

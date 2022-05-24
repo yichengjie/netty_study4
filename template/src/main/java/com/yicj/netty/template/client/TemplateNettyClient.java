@@ -1,4 +1,4 @@
-package com.yicj.netty.template;
+package com.yicj.netty.template.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -22,6 +22,7 @@ public class TemplateNettyClient {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     // 指定连接数据读写逻辑
+                    ch.pipeline().addLast(new ClientHandler()) ;
                 }
             }) ;
 
