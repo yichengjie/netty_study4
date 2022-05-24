@@ -1,5 +1,8 @@
-package com.yicj.netty.codec;
+package com.yicj.netty.common.packet;
 
+import com.yicj.netty.common.Command;
+import com.yicj.netty.common.serializer.Serializer;
+import com.yicj.netty.common.serializer.SerializerAlgorithm;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 
@@ -61,6 +64,10 @@ public class PacketCodeC {
             return LoginRequestPacket.class ;
         }else if (Command.LOGIN_RESPONSE == command){
             return LoginResponsePacket.class ;
+        }else if (Command.MESSAGE_REQUEST == command){
+            return MessageRequestPacket.class ;
+        }else if (Command.MESSAGE_RESPONSE == command){
+            return MessageResponsePacket.class ;
         }
         return null ;
     }

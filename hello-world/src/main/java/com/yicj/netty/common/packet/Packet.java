@@ -1,4 +1,4 @@
-package com.yicj.netty.codec;
+package com.yicj.netty.common.packet;
 
 import lombok.Data;
 

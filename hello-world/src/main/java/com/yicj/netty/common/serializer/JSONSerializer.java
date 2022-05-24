@@ -1,4 +1,4 @@
-package com.yicj.netty.codec;
+package com.yicj.netty.common.serializer;
 
 import com.alibaba.fastjson.JSON;
 

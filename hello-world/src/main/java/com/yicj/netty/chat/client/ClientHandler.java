@@ -1,9 +1,9 @@
 package com.yicj.netty.chat.client;
 
-import com.yicj.netty.codec.LoginRequestPacket;
-import com.yicj.netty.codec.LoginResponsePacket;
-import com.yicj.netty.codec.Packet;
-import com.yicj.netty.codec.PacketCodeC;
+import com.yicj.netty.common.packet.LoginRequestPacket;
+import com.yicj.netty.common.packet.LoginResponsePacket;
+import com.yicj.netty.common.packet.Packet;
+import com.yicj.netty.common.packet.PacketCodeC;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

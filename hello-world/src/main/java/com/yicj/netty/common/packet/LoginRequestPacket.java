@@ -1,5 +1,6 @@
-package com.yicj.netty.codec;
+package com.yicj.netty.common.packet;
 
+import com.yicj.netty.common.Command;
 import lombok.Data;
 
 @Data

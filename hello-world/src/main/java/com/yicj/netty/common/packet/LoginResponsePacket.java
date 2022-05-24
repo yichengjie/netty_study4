@@ -1,9 +1,10 @@
-package com.yicj.netty.codec;
+package com.yicj.netty.common.packet;
 
+import com.yicj.netty.common.Command;
 import lombok.Data;
 
 @Data
-public class LoginResponsePacket extends Packet{
+public class LoginResponsePacket extends Packet {
 
     private Boolean success ;
     private String reason ;
