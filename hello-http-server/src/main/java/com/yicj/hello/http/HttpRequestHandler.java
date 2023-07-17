@@ -6,7 +6,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
-
+import io.netty.util.ReferenceCountUtil;
+import lombok.extern.slf4j.Slf4j;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,10 +17,13 @@ import static io.netty.handler.codec.http.HttpUtil.is100ContinueExpected;
  * @author yicj
  * @date 2023年07月17日 10:06
  */
+@Slf4j
 public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
+    // ChannelInboundHandlerAdapter
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
+        log.info("channelReadComplete ... ");
         ctx.flush();
     }
 
@@ -33,9 +37,9 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         }
         // 获取请求的uri
         String uri = req.uri();
-        Map<String,String> resMap = new HashMap<>();
-        resMap.put("method",req.method().name());
-        resMap.put("uri",uri);
+//        Map<String,String> resMap = new HashMap<>();
+//        resMap.put("method",req.method().name());
+//        resMap.put("uri",uri);
         String msg = "<html><head><title>test</title></head><body>你请求uri为：" + uri+"</body></html>";
         // 创建http响应
         FullHttpResponse response = new DefaultFullHttpResponse(
