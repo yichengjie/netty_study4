@@ -11,6 +11,7 @@
         <module>hello-world</module>
         <module>template</module>
         <module>hello-advance</module>
+        <module>hello-http-server</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -46,13 +47,13 @@
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
-                <version>4.1.38.Final</version>
+                <version>4.1.94.Final</version>
             </dependency>
 
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.80</version>
+                <version>1.2.83</version>
             </dependency>
 
         </dependencies>
