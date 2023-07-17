@@ -6,11 +6,10 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
-import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
-import java.util.HashMap;
+import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Map;
-
 import static io.netty.handler.codec.http.HttpUtil.is100ContinueExpected;
 
 /**
@@ -37,10 +36,23 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         }
         // 获取请求的uri
         String uri = req.uri();
+        String body = req.content().toString(Charset.defaultCharset());
+        QueryStringDecoder paramDecoder = new QueryStringDecoder(body,false);
+        Map<String, List<String>> parameters = paramDecoder.parameters();
+
+        //log.info("body : {}", body);
+        log.info("parameters : {}", parameters);
+
+        parameters.forEach((key, value) -> {
+            log.info("---> key : {}", key);
+            log.info("---> value : {}", value);
+        });
+
 //        Map<String,String> resMap = new HashMap<>();
 //        resMap.put("method",req.method().name());
 //        resMap.put("uri",uri);
-        String msg = "<html><head><title>test</title></head><body>你请求uri为：" + uri+"</body></html>";
+        String msg = "<html><head><title>test</title></head><body>你请求uri为：" + uri+" <br/> <p>"+body+"</p></body></html>";
+
         // 创建http响应
         FullHttpResponse response = new DefaultFullHttpResponse(
                 HttpVersion.HTTP_1_1,
