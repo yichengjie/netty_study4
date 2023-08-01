@@ -56,6 +56,11 @@ public class ChatNettyClient {
                     ByteBuf byteBuf = PacketCodeC.INSTANCE.encode(channel.alloc(), packet);
                     channel.writeAndFlush(byteBuf) ;
                 }else {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     log.info("未登录。。。");
                 }
             }
