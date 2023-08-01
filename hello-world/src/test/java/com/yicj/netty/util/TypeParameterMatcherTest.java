@@ -35,4 +35,33 @@ public class TypeParameterMatcherTest {
         System.out.println(copy.toString(utf8));
     }
 
+    @Test
+    public void codec(){
+        String content = "hello world" ;
+        byte[] bytes = content.getBytes();
+        ByteBuf buffer = Unpooled.buffer();
+        buffer.writeByte(1) ;
+        buffer.writeInt(bytes.length) ;
+        buffer.writeBytes("hello worl".getBytes()) ;
+        log.info("====> readableBytes : {}", buffer.readableBytes());
+        byte command = buffer.readByte();
+        int length = buffer.readInt();
+        log.info("====> command: {}, length: {}, readableBytes :{}", command, length, buffer.readableBytes());
+        // reset readIndex
+        buffer.resetReaderIndex() ;
+        // 继续写入数据
+        buffer.writeBytes("d".getBytes()) ;
+        // 再次读取
+        byte command2 = buffer.readByte();
+        int length2 = buffer.readInt();
+        byte [] body = new byte[length2] ;
+        log.info("====> command2: {}, length2: {}, readableBytes :{}", command2, length2, buffer.readableBytes());
+        buffer.readBytes(body) ;
+        log.info("body value : {}, readableBytes :{}", new String(body), buffer.readableBytes());
+        // 标记读取位置
+        buffer.markReaderIndex() ;
+
+    }
+
+
 }

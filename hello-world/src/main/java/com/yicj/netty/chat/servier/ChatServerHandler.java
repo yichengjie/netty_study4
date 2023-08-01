@@ -20,9 +20,9 @@ public class ChatServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf requestByteBuf = (ByteBuf) msg ;
+        ByteBuf byteBuf = (ByteBuf) msg ;
         // 解码
-        Packet packet = PacketCodeC.INSTANCE.decode(requestByteBuf);
+        Packet packet = PacketCodeC.INSTANCE.decode(byteBuf);
         // 判断是否为登录请求数据包
         RequestPacketHandlerManager handlerManager = RequestPacketHandlerManager.getInstance();
         handlerManager.handle(ctx, packet) ;

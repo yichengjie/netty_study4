@@ -29,6 +29,10 @@ public class PacketCodeC {
     }
 
     public Packet decode(ByteBuf byteBuf) {
+
+        if (byteBuf.readableBytes() < 11){
+            return null ;
+        }
         // 跳过魔数
         byteBuf.skipBytes(4) ;
         // 跳过版本号
@@ -39,9 +43,14 @@ public class PacketCodeC {
         byte command = byteBuf.readByte();
         // 数据包长度
         int length = byteBuf.readInt();
+        if (byteBuf.readableBytes() < length){
+            byteBuf.resetReaderIndex() ;
+            return null ;
+        }
         // 数据包内容
         byte [] bytes = new byte[length] ;
         byteBuf.readBytes(bytes) ;
+        byteBuf.markReaderIndex() ;
         // 反序列化
         Class<? extends Packet> requestType = this.getRequestType(command) ;
         Serializer serializer = this.getSerializer(serializeAlgorithm);
