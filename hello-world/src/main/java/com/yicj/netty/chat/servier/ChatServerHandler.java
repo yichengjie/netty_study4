@@ -23,6 +23,13 @@ public class ChatServerHandler extends ChannelInboundHandlerAdapter {
         ByteBuf byteBuf = (ByteBuf) msg ;
         // 解码
         Packet packet = PacketCodeC.INSTANCE.decode(byteBuf);
+        if (packet == null){
+            log.info("读取数据为空!!");
+            return;
+        }
+        log.info("---> packet : {}", packet);
+        // 模拟业务耗时操作
+        //Thread.sleep(1000);
         // 判断是否为登录请求数据包
         RequestPacketHandlerManager handlerManager = RequestPacketHandlerManager.getInstance();
         handlerManager.handle(ctx, packet) ;

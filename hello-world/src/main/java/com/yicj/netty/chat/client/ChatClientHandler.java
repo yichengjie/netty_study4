@@ -16,23 +16,27 @@ public class ChatClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         log.info("{}：客户端开始登录", new Date());
-        // 创建登录对象
-        LoginRequestPacket packet = new LoginRequestPacket() ;
-        packet.setUserId(UUID.randomUUID().toString());
-        packet.setUsername("flash");
-        packet.setPassword("pwd");
-        // 编码
-        // ctx.alloc() 获取的是与当前连接相关的ByteBuf分配器,建议这样使用
-        ByteBuf byteBuf = PacketCodeC.INSTANCE.encode(ctx.alloc(), packet);
-        // 写数据
-        ctx.channel().writeAndFlush(byteBuf) ;
+        // 模拟连续登录10次
+        for (int i = 0 ; i< 10; i ++){
+            // 创建登录对象
+            LoginRequestPacket packet = new LoginRequestPacket() ;
+            packet.setUserId(UUID.randomUUID().toString());
+            packet.setUsername("flash["+(i + 1)+"]");
+            packet.setPassword("pwd["+(i + 1)+"]");
+            // 编码
+            // ctx.alloc() 获取的是与当前连接相关的ByteBuf分配器,建议这样使用
+            ByteBuf byteBuf = PacketCodeC.INSTANCE.encode(ctx.alloc(), packet);
+            ctx.channel().writeAndFlush(byteBuf) ;
+        }
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf byteBuf = (ByteBuf) msg ;
         Packet packet = PacketCodeC.INSTANCE.decode(byteBuf);
-
+        if (packet == null){
+            return;
+        }
         if (packet instanceof LoginResponsePacket){
             LoginResponsePacket responsePacket = (LoginResponsePacket) packet ;
             if (responsePacket.getSuccess()){

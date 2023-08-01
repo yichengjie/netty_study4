@@ -5,7 +5,9 @@ import com.yicj.netty.common.serializer.Serializer;
 import com.yicj.netty.common.serializer.SerializerAlgorithm;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class PacketCodeC {
 
     private static final  int MAGIC_NUMBER  = 0x12345678 ;
@@ -29,8 +31,9 @@ public class PacketCodeC {
     }
 
     public Packet decode(ByteBuf byteBuf) {
-
-        if (byteBuf.readableBytes() < 11){
+        int readableBytes = byteBuf.readableBytes();
+        log.info("===> 可读字节数: {}", readableBytes);
+        if (readableBytes < 11){
             return null ;
         }
         // 跳过魔数
