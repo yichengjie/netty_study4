@@ -47,13 +47,13 @@ public class PacketCodeC {
         // 数据包长度
         int length = byteBuf.readInt();
         if (byteBuf.readableBytes() < length){
-            byteBuf.resetReaderIndex() ;
+            //byteBuf.resetReaderIndex() ;
             return null ;
         }
         // 数据包内容
         byte [] bytes = new byte[length] ;
         byteBuf.readBytes(bytes) ;
-        byteBuf.markReaderIndex() ;
+        //byteBuf.markReaderIndex() ;
         // 反序列化
         Class<? extends Packet> requestType = this.getRequestType(command) ;
         Serializer serializer = this.getSerializer(serializeAlgorithm);

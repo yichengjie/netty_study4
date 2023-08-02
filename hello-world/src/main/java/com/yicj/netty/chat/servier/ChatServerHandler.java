@@ -20,13 +20,7 @@ public class ChatServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf byteBuf = (ByteBuf) msg ;
-        // 解码
-        Packet packet = PacketCodeC.INSTANCE.decode(byteBuf);
-        if (packet == null){
-            log.info("读取数据为空!!");
-            return;
-        }
+        Packet packet = (Packet) msg ;
         log.info("---> packet : {}", packet);
         // 模拟业务耗时操作
         //Thread.sleep(1000);

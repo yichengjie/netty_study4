@@ -26,6 +26,8 @@ public class ChatNettyServer {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
+                        pipeline.addLast(new MessageDecoder()) ;
+                        pipeline.addLast(new ServerLogHandler()) ;
                         pipeline.addLast(new ChatServerHandler()) ;
                     }
                 }) ;
