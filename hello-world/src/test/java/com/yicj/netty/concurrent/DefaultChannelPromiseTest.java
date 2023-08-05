@@ -1,4 +1,4 @@
-package com.yicj.netty.util;
+package com.yicj.netty.concurrent;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelPromise;

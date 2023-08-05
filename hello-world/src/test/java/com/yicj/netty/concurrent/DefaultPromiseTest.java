@@ -1,4 +1,4 @@
-package com.yicj.netty.util;
+package com.yicj.netty.concurrent;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
