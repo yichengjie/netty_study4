@@ -3,11 +3,14 @@ package com.yicj.netty.util;
 import com.yicj.netty.service.AbstractHello;
 import com.yicj.netty.service.impl.HelloA;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufProcessor;
 import io.netty.buffer.Unpooled;
+import io.netty.util.ByteProcessor;
 import io.netty.util.internal.TypeParameterMatcher;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -26,6 +29,11 @@ public class TypeParameterMatcherTest {
     public void hello(){
         Charset utf8 = StandardCharsets.UTF_8;
         ByteBuf buf = Unpooled.copiedBuffer("Netty in Action rocks!", utf8) ;
+        ByteBuffer buffer = null ;
+        buffer.remaining() ;
+        buf.refCnt() ;
+        buf.release();
+        int i = buf.forEachByte(ByteProcessor.FIND_CR);
         ByteBuf copy = buf.copy(0, 14);
         System.out.println(copy.toString(utf8));
         // 更新源 Bytebuf 索引 0 的字节
